@@ -48,13 +48,28 @@ label, .stMarkdown, p, span {
     outline: none !important;
     box-shadow: none !important;
 }
-
 /* NUMBER INPUT - STUDY HOURS */
-[data-testid="stNumberInput"] div[data-baseweb="input"] {
+[data-testid="stNumberInput"] {
+    display: flex !important;
+    align-items: center !important;
+}
+
+[data-testid="stNumberInput"] > div {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    width: 100% !important;
     background-color: #FFFFFF !important;
     border: 1px solid #D8D2F5 !important;
     border-radius: 8px !important;
+    overflow: hidden;
+}
+
+[data-testid="stNumberInput"] div[data-baseweb="input"] {
+    background-color: #FFFFFF !important;
+    border: none !important;
     box-shadow: none !important;
+    flex: 1;
 }
 
 [data-testid="stNumberInput"] input {
@@ -64,11 +79,17 @@ label, .stMarkdown, p, span {
     border: none !important;
     outline: none !important;
     box-shadow: none !important;
+    text-align: left !important;
+    padding: 8px 12px !important;
 }
 
 [data-testid="stNumberInput"] button {
     background-color: #F5F3FF !important;
     color: #1E1E2F !important;
+    border: none !important;
+    border-left: 1px solid #E0D9FF !important;
+    width: 32px !important;
+    flex-shrink: 0;
 }
 
 /* DATE INPUT - DEADLINE */
@@ -202,7 +223,6 @@ div[data-baseweb="calendar"] div[aria-label*="Today"] {
     background-color: #5B4BD6 !important;
     color: #FFFFFF !important;
 }
-
 /* RADIO BUTTONS */
 div[role="radiogroup"] {
     display: flex;
@@ -216,21 +236,40 @@ div[role="radiogroup"] label {
     border-radius: 12px;
     border: 1px solid #E0D9FF !important;
     width: 100%;
-}
-
-div[role="radiogroup"] label div {
-    background-color: transparent !important;
-    color: #1E1E2F !important;
+    display: flex !important;
+    align-items: center !important;
+    cursor: pointer;
 }
 
 div[role="radiogroup"] label p {
     color: #1E1E2F !important;
+    margin: 0 !important;
 }
 
-div[role="radiogroup"] label[data-baseweb="radio"] > div:first-child {
+/* The circular radio indicator itself */
+div[role="radiogroup"] label span[data-baseweb="radio"] {
     background-color: #FFFFFF !important;
-    border-color: #6C5CE7 !important;
+    border: 2px solid #6C5CE7 !important;
+    border-radius: 50% !important;
+    width: 18px !important;
+    height: 18px !important;
+    margin-right: 10px !important;
+    flex-shrink: 0;
 }
+
+/* Filled dot when selected */
+div[role="radiogroup"] label input:checked + div span[data-baseweb="radio"],
+div[role="radiogroup"] label[data-checked="true"] span[data-baseweb="radio"] {
+    background-color: #6C5CE7 !important;
+    box-shadow: inset 0 0 0 3px #FFFFFF !important;
+}
+
+/* Selected option background highlight */
+div[role="radiogroup"] label:has(input:checked) {
+    background-color: #EDE7FF !important;
+    border: 1px solid #6C5CE7 !important;
+}
+
 
 /* EXISTING DESIGN */
 .main-header {

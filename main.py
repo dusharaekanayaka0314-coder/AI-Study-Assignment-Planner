@@ -45,11 +45,6 @@ html, body, [class*="css"], p, span, label, div, h1, h2, h3, h4, h5, h6 {
     background-attachment: fixed !important;
 }
 
-/* Main Container Card Effect */
-[data-testid="stVerticalBlock"] > div {
-    border-radius: 16px;
-}
-
 /* Field Label Styling */
 label, .stMarkdown label p {
     font-size: 0.95rem !important;
@@ -131,7 +126,44 @@ label, .stMarkdown label p {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
 }
 
-/* Primary Action Button */
+/* =========================================================
+   FIXED & STYLED FILE UPLOADER BUTTON
+   ========================================================= */
+[data-testid="stFileUploader"] {
+    background-color: transparent !important;
+}
+
+[data-testid="stFileUploaderDropzone"] {
+    background-color: rgba(255, 255, 255, 0.7) !important;
+    border: 2px dashed #C7D2FE !important;
+    border-radius: 16px !important;
+    padding: 20px !important;
+}
+
+/* Styling the Browse Files button inside File Uploader */
+[data-testid="stFileUploaderDropzone"] button {
+    background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%) !important;
+    color: #FFFFFF !important;
+    font-weight: 700 !important;
+    border-radius: 10px !important;
+    border: none !important;
+    padding: 8px 20px !important;
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25) !important;
+    transition: all 0.2s ease-in-out !important;
+}
+
+[data-testid="stFileUploaderDropzone"] button:hover {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 6px 16px rgba(79, 70, 229, 0.35) !important;
+}
+
+/* Fix text overlay inside Streamlit button */
+[data-testid="stFileUploaderDropzone"] button * {
+    color: #FFFFFF !important;
+    font-weight: 700 !important;
+}
+
+/* Primary Action Button (Generate Study Plan) */
 div.stButton > button {
     background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%) !important;
     color: #FFFFFF !important;
@@ -222,7 +254,7 @@ goal = st.text_area(
 st.write("")
 
 # =========================================================
-# SYLLABUS / ASSIGNMENT MATERIAL SECTION (TABS DESIGN)
+# SYLLABUS / ASSIGNMENT MATERIAL SECTION
 # =========================================================
 st.markdown(
     """
@@ -238,7 +270,6 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-# Replacing crowded Radio Buttons with Clean Modern Tabs
 tab1, tab2 = st.tabs(["📁 Upload File (PDF / DOCX / TXT)", "✏️ Paste Text Directly"])
 
 with tab1:

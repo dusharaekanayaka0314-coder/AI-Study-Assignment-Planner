@@ -47,6 +47,7 @@ label, .stMarkdown, p, span {
 div[data-baseweb="input"],
 div[data-baseweb="base-input"],
 div[data-baseweb="textarea"],
+div[data-baseweb="select"],
 div[data-baseweb="select"] > div {
     background-color: #FFFFFF !important;
     border: 1px solid #D8D2F5 !important;
@@ -74,7 +75,80 @@ input::placeholder, textarea::placeholder {
     -webkit-text-fill-color: #8E8A9F !important;
 }
 
-/* Number Input Box & Buttons */
+/* =========================================================
+   FIX: DATE INPUT FIELD (DEADLINE)
+   ========================================================= */
+[data-testid="stDateInput"] {
+    color-scheme: light !important;
+}
+
+[data-testid="stDateInput"] div[data-baseweb="input"] {
+    background-color: #FFFFFF !important;
+}
+
+[data-testid="stDateInput"] input {
+    background-color: #FFFFFF !important;
+    color: #1E1E2F !important;
+    -webkit-text-fill-color: #1E1E2F !important;
+}
+
+[data-testid="stDateInput"] svg {
+    fill: #6C5CE7 !important;
+}
+
+div[data-baseweb="calendar"] {
+    background-color: #FFFFFF !important;
+    color: #1E1E2F !important;
+    color-scheme: light !important;
+}
+
+div[data-baseweb="calendar"] * {
+    color: #1E1E2F !important;
+}
+
+/* =========================================================
+   FIX: SELECTBOX DROPDOWN ARROW & CONTAINER
+   ========================================================= */
+[data-testid="stSelectbox"] div[data-baseweb="select"] {
+    background-color: #FFFFFF !important;
+}
+
+[data-testid="stSelectbox"] div[role="button"] {
+    background-color: #FFFFFF !important;
+}
+
+/* Removes the dark background behind the arrow icon */
+[data-testid="stSelectbox"] [data-baseweb="icon"] {
+    background-color: #F5F3FF !important;
+    border-top-right-radius: 8px !important;
+    border-bottom-right-radius: 8px !important;
+}
+
+[data-testid="stSelectbox"] svg {
+    fill: #6C5CE7 !important;
+}
+
+div[data-baseweb="popover"],
+div[data-baseweb="menu"],
+ul[role="listbox"] {
+    background-color: #FFFFFF !important;
+    border: 1px solid #E0D9FF !important;
+    border-radius: 8px !important;
+}
+
+li[role="option"] {
+    background-color: #FFFFFF !important;
+    color: #1E1E2F !important;
+}
+
+li[role="option"]:hover {
+    background-color: #F5F3FF !important;
+    color: #6C5CE7 !important;
+}
+
+/* =========================================================
+   NUMBER INPUT BOX & BUTTONS
+   ========================================================= */
 [data-testid="stNumberInput"] > div {
     background-color: #FFFFFF !important;
     border: 1px solid #D8D2F5 !important;
@@ -99,53 +173,9 @@ input::placeholder, textarea::placeholder {
     color: #6C5CE7 !important;
 }
 
-/* Selectbox & Dropdown Options */
-[data-testid="stSelectbox"] div[data-baseweb="select"] {
-    background-color: #FFFFFF !important;
-}
-
-[data-testid="stSelectbox"] svg {
-    fill: #1E1E2F !important;
-}
-
-div[data-baseweb="popover"],
-div[data-baseweb="menu"],
-ul[role="listbox"] {
-    background-color: #FFFFFF !important;
-    border: 1px solid #E0D9FF !important;
-    border-radius: 8px !important;
-}
-
-li[role="option"] {
-    background-color: #FFFFFF !important;
-    color: #1E1E2F !important;
-}
-
-li[role="option"]:hover {
-    background-color: #F5F3FF !important;
-    color: #6C5CE7 !important;
-}
-
-/* Date Input & Calendar Overlay */
-[data-testid="stDateInput"] {
-    color-scheme: light !important;
-}
-
-[data-testid="stDateInput"] svg {
-    fill: #6C5CE7 !important;
-}
-
-div[data-baseweb="calendar"] {
-    background-color: #FFFFFF !important;
-    color: #1E1E2F !important;
-    color-scheme: light !important;
-}
-
-div[data-baseweb="calendar"] * {
-    color: #1E1E2F !important;
-}
-
-/* File Upload Zone */
+/* =========================================================
+   FILE UPLOAD ZONE
+   ========================================================= */
 [data-testid="stFileUploader"] {
     background-color: #FFFFFF !important;
     color: #1E1E2F !important;
@@ -173,7 +203,9 @@ div[data-baseweb="calendar"] * {
     background-color: #5B4BD6 !important;
 }
 
-/* Radio Buttons */
+/* =========================================================
+   RADIO BUTTONS
+   ========================================================= */
 div[role="radiogroup"] {
     display: flex;
     flex-direction: column;
@@ -188,7 +220,9 @@ div[role="radiogroup"] label {
     width: 100%;
 }
 
-/* Layout Cards & Header */
+/* =========================================================
+   LAYOUT CARDS & HEADER
+   ========================================================= */
 .main-header {
     text-align: center;
     padding: 30px 20px;

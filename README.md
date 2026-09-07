@@ -1,6 +1,6 @@
 # 🎓 AI Study & Assignment Planner
 
-An intelligent, AI-powered web application designed to help students, developers and self-learners convert complex syllabi, assignment guidelines, or course documents into personalized, day-by-day study roadmaps. 
+An intelligent, AI-powered web application designed to help students, developers and self-learners convert complex syllabus, assignment guidelines, or course documents into personalized, day-by-day study roadmaps. 
 
 Powered by **Google Gemini AI** and built with **Streamlit**, this tool features a modern, glassmorphism-inspired UI for an intuitive and seamless user experience.
 

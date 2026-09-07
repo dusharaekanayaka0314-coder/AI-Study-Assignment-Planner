@@ -89,9 +89,14 @@ label, .stMarkdown, p, span {
     color: #1E1E2F !important;
 }
 
-[data-testid="stDateInput"] div[data-baseweb="input"] > div > div {
+[data-testid="stDateInput"] * {
     background-color: #FFFFFF !important;
     color: #1E1E2F !important;
+    -webkit-text-fill-color: #1E1E2F !important;
+}
+
+[data-testid="stDateInput"] svg {
+    fill: #6C5CE7 !important;
 }
 
 [data-testid="stDateInput"] input {
@@ -118,17 +123,20 @@ div[data-baseweb="calendar"] {
 div[data-baseweb="calendar"] * {
     color: #1E1E2F !important;
 }
-
 /* SELECTBOX - CURRENT LEVEL */
-[data-testid="stSelectbox"] div[data-baseweb="select"] > div {
+[data-testid="stSelectbox"] * {
     background-color: #FFFFFF !important;
     color: #1E1E2F !important;
+}
+
+[data-testid="stSelectbox"] div[data-baseweb="select"] > div {
     border: 1px solid #D8D2F5 !important;
 }
 
 [data-testid="stSelectbox"] svg {
     fill: #1E1E2F !important;
 }
+
 
 /* TEXTAREA - GOAL, PASTE TEXT */
 [data-testid="stTextArea"] textarea {

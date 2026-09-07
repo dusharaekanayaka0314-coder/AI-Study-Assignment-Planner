@@ -1,3 +1,8 @@
+මෙන්න fix කරපු සම්පූර්ණ `main.py` code එක.
+
+මෙහි **Model එක `gemini-1.5-flash` ලෙස නිවැරදි කර** ඇති අතර, API Quota/Rate Limit එක පැනපු වෙලාවට App එක crash නොවී පැහැදිලි message එකක් දෙන්න **`try-except` Error Handling** එකතු කර ඇත.
+
+```python
 import os
 import docx
 from dotenv import load_dotenv
@@ -12,7 +17,9 @@ load_dotenv()
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
 genai.configure(api_key=GEMINI_API_KEY)
-model = genai.GenerativeModel("gemini-3.6-flash")
+
+# Standard stable Gemini model
+model = genai.GenerativeModel("gemini-1.5-flash")
 
 st.set_page_config(
     page_title="AI Study & Assignment Planner",
@@ -32,7 +39,7 @@ html, body, .stApp {
     font-family: 'Plus Jakarta Sans', sans-serif !important;
 }
 
-/* VIBRANT & COLORFUL FULL BACKGROUND (Light overlay so it stays bright) */
+/* VIBRANT & COLORFUL FULL BACKGROUND */
 .stApp {
     background: linear-gradient(
         135deg,
@@ -350,7 +357,7 @@ with tab2:
 st.write("")
 
 # =========================================================
-# GENERATE PLAN
+# GENERATE PLAN (WITH ERROR HANDLING)
 # =========================================================
 if st.button("Generate Study Plan"):
     if not st.session_state.extracted_text.strip():
@@ -381,10 +388,20 @@ Current Level: {level}
 Goal: {goal}
 
 Material:
-{st.session_state.extracted_text[:5000]}
+{st.session_state.extracted_text[:4000]}
 """
-            response = model.generate_content(prompt)
+            try:
+                response = model.generate_content(prompt)
+                
+                st.markdown('<div class="output-box">', unsafe_allow_html=True)
+                st.markdown(response.text)
+                st.markdown('</div>', unsafe_allow_html=True)
 
-        st.markdown('<div class="output-box">', unsafe_allow_html=True)
-        st.markdown(response.text)
-        st.markdown('</div>', unsafe_allow_html=True)
+            except Exception as e:
+                error_msg = str(e)
+                if "ResourceExhausted" in error_msg or "429" in error_msg:
+                    st.error("⚠️ API Request Limit Exceeded! Google Gemini free tier limit එක පැනලා. විනාඩියක් ඉඳලා නැවත උත්සාහ කරන්න (Please wait 1 minute and try again).")
+                else:
+                    st.error(f"⚠️ An error occurred while generating the plan: {error_msg}")
+
+```

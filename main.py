@@ -127,40 +127,28 @@ label, .stMarkdown label p {
 }
 
 /* =========================================================
-   FIXED & STYLED FILE UPLOADER BUTTON
+   CLEAN & SAFE FILE UPLOADER STYLING (FIXES OVERLAPPING TEXT)
    ========================================================= */
-[data-testid="stFileUploader"] {
-    background-color: transparent !important;
-}
-
 [data-testid="stFileUploaderDropzone"] {
-    background-color: rgba(255, 255, 255, 0.7) !important;
+    background-color: rgba(255, 255, 255, 0.8) !important;
     border: 2px dashed #C7D2FE !important;
     border-radius: 16px !important;
-    padding: 20px !important;
+    padding: 24px !important;
 }
 
-/* Styling the Browse Files button inside File Uploader */
+/* Clear all forced text hacks on file uploader internal elements */
 [data-testid="stFileUploaderDropzone"] button {
-    background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%) !important;
-    color: #FFFFFF !important;
-    font-weight: 700 !important;
     border-radius: 10px !important;
-    border: none !important;
-    padding: 8px 20px !important;
-    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25) !important;
+    border: 1px solid #4F46E5 !important;
+    background: #EEF2FF !important;
+    color: #4F46E5 !important;
+    font-weight: 600 !important;
     transition: all 0.2s ease-in-out !important;
 }
 
 [data-testid="stFileUploaderDropzone"] button:hover {
-    transform: translateY(-1px) !important;
-    box-shadow: 0 6px 16px rgba(79, 70, 229, 0.35) !important;
-}
-
-/* Fix text overlay inside Streamlit button */
-[data-testid="stFileUploaderDropzone"] button * {
+    background: #4F46E5 !important;
     color: #FFFFFF !important;
-    font-weight: 700 !important;
 }
 
 /* Primary Action Button (Generate Study Plan) */

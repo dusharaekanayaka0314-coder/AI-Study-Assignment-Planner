@@ -1,448 +1,293 @@
-from dotenv import load_dotenv
 import os
+import google.generativeai as genai
+from dotenv import load_dotenv
 import streamlit as st
 
 load_dotenv()
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
-import google.generativeai as genai
 genai.configure(api_key=GEMINI_API_KEY)
 model = genai.GenerativeModel("gemini-3.6-flash")
 
 st.set_page_config(page_title="AI Study & Assignment Planner", layout="centered")
 
-st.markdown("""
+# =========================================================
+# ENHANCED CUSTOM CSS
+# =========================================================
+st.markdown(
+    """
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
 
 html, body, [class*="css"], p, span, label, div, h1, h2, h3, h4 {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Poppins', sans-serif !important;
 }
 
-[data-testid="stAppViewContainer"], 
-[data-testid="stHeader"], 
-.main, 
-body, 
 .stApp {
-    background-color: #FFFFFF !important;
+    background-color: #F8F9FA !important;
     color: #1E1E2F !important;
 }
 
-label, .stMarkdown, p, span {
-    color: #1E1E2F !important;
+/* Base Card UI */
+.card {
+    background: #FFFFFF !important;
+    padding: 28px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(108, 92, 231, 0.08);
+    margin-bottom: 24px;
+    border: 1px solid #EAE7FF;
 }
 
-
-/* =====================================================
-   FIX ONLY: TEXT INPUT - SUBJECT NAME
-   ===================================================== */
-
-[data-testid="stTextInput"] div[data-baseweb="input"] {
-    background-color: #FFFFFF !important;
-    border: 1px solid #D8D2F5 !important;
-    border-radius: 8px !important;
-    box-shadow: none !important;
+.card h2 {
+    color: #2D3748 !important;
+    font-size: 1.35rem !important;
+    font-weight: 700 !important;
 }
 
-[data-testid="stTextInput"] input {
-    background-color: #FFFFFF !important;
-    color: #1E1E2F !important;
-    -webkit-text-fill-color: #1E1E2F !important;
-    border: none !important;
-    outline: none !important;
-    box-shadow: none !important;
-}
-
-
-/* =====================================================
-   FIX ONLY: NUMBER INPUT - STUDY HOURS
-   ===================================================== */
-
-[data-testid="stNumberInput"] div[data-baseweb="input"] {
-    background-color: #FFFFFF !important;
-    border: 1px solid #D8D2F5 !important;
-    border-radius: 8px !important;
-    box-shadow: none !important;
-}
-
-[data-testid="stNumberInput"] input {
-    background-color: #FFFFFF !important;
+/* Universal Input Override (Fixes Dark Backgrounds) */
+div[data-baseweb="input"], 
+div[data-baseweb="select"] > div, 
+div[data-baseweb="textarea"], 
+textarea, 
+input {
+    background-color: #FAFAFF !important;
     color: #1E1E2F !important;
     -webkit-text-fill-color: #1E1E2F !important;
-    border: none !important;
-    outline: none !important;
-    box-shadow: none !important;
+    border-color: #E2E0F0 !important;
+    border-radius: 10px !important;
 }
 
-[data-testid="stNumberInput"] button {
+/* Focus States */
+div[data-baseweb="input"]:focus-within, 
+div[data-baseweb="select"]:focus-within > div,
+textarea:focus {
+    border-color: #6C5CE7 !important;
+    box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.15) !important;
+}
+
+/* Dropdown Menu Popup Overlay Fix */
+div[data-baseweb="popover"], 
+div[data-baseweb="menu"], 
+ul[role="listbox"], 
+li[role="option"] {
+    background-color: #FFFFFF !important;
+    color: #1E1E2F !important;
+}
+
+li[role="option"]:hover {
     background-color: #F5F3FF !important;
-    color: #1E1E2F !important;
 }
 
-
-/* =====================================================
-   FIX ONLY: DATE INPUT - DEADLINE
-   ===================================================== */
-
+/* Date Picker Fixes */
 [data-testid="stDateInput"] {
     color-scheme: light !important;
 }
 
-[data-testid="stDateInput"] div[data-baseweb="input"] {
-    background-color: #FFFFFF !important;
-    border: 1px solid #D8D2F5 !important;
-    border-radius: 8px !important;
-    box-shadow: none !important;
-    color-scheme: light !important;
-}
-
-[data-testid="stDateInput"] div[data-baseweb="input"] > div {
-    background-color: #FFFFFF !important;
-    color: #1E1E2F !important;
-}
-
-[data-testid="stDateInput"] input {
-    background-color: #FFFFFF !important;
-    color: #1E1E2F !important;
-    -webkit-text-fill-color: #1E1E2F !important;
-    border: none !important;
-    outline: none !important;
-    box-shadow: none !important;
-    color-scheme: light !important;
-}
-
-/* Calendar icon */
-[data-testid="stDateInput"] svg {
-    color: #6C5CE7 !important;
-    fill: #6C5CE7 !important;
-}
-
-/* Calendar popup */
 div[data-baseweb="calendar"] {
     background-color: #FFFFFF !important;
-    color: #1E1E2F !important;
-    color-scheme: light !important;
 }
 
-div[data-baseweb="calendar"] * {
-    color: #1E1E2F !important;
-}
-
-
-/* =====================================================
-   FIX ONLY: FILE UPLOADER
-   ===================================================== */
-
-[data-testid="stFileUploader"] {
-    background-color: #FFFFFF !important;
-    color: #1E1E2F !important;
-}
-
-[data-testid="stFileUploaderDropzone"] {
-    background-color: #FAF9FF !important;
-    border: 2px dashed #A29BFE !important;
-    border-radius: 14px !important;
-    color: #1E1E2F !important;
-}
-
-[data-testid="stFileUploaderDropzone"] * {
-    color: #1E1E2F !important;
-}
-
-[data-testid="stFileUploaderDropzoneInstructions"] {
-    background-color: transparent !important;
-    color: #1E1E2F !important;
-}
-
-[data-testid="stFileUploaderDropzone"] button,
-[data-testid="stBaseButton-secondary"] {
-    background-color: #6C5CE7 !important;
-    color: #FFFFFF !important;
-    border: none !important;
-    border-radius: 8px !important;
-}
-
-[data-testid="stFileUploaderDropzone"] button:hover,
-[data-testid="stBaseButton-secondary"]:hover {
-    background-color: #5B4BD6 !important;
-    color: #FFFFFF !important;
-}
-
-
-/* =====================================================
-   EXISTING DESIGN
-   ===================================================== */
-
+/* Header Styling */
 .main-header {
     text-align: center;
-    padding: 30px 20px;
-    background: linear-gradient(135deg, #6C5CE7 0%, #A29BFE 100%);
+    padding: 36px 20px;
+    background: linear-gradient(135deg, #6C5CE7 0%, #8E7CFF 100%);
     border-radius: 20px;
-    margin-bottom: 25px;
-    box-shadow: 0 8px 24px rgba(108, 92, 231, 0.35);
+    margin-bottom: 28px;
+    box-shadow: 0 10px 25px rgba(108, 92, 231, 0.25);
 }
 
-.main-header h1, .main-header p {
+.main-header h1 {
     color: #FFFFFF !important;
+    font-weight: 800;
+    margin-top: 10px;
+    margin-bottom: 6px;
 }
 
-.card {
-    background: #FFFFFF !important;
-    padding: 24px;
-    border-radius: 18px;
-    box-shadow: 0 6px 18px rgba(108, 92, 231, 0.12);
-    margin-bottom: 22px;
-    border: 1px solid #EDE9FE;
+.main-header p {
+    color: #F0EDFF !important;
+    font-size: 0.95rem;
+    margin: 0;
 }
 
-.card h2 {
-    color: #6C5CE7 !important;
-}
-
+/* Primary Button Styling */
 div.stButton > button {
-    background: linear-gradient(90deg, #6C5CE7, #A29BFE) !important;
+    background: linear-gradient(90deg, #6C5CE7 0%, #8E7CFF 100%) !important;
     color: #FFFFFF !important;
-    font-weight: 700;
-    font-size: 1.05rem;
-    border-radius: 12px;
-    padding: 12px 24px;
-    border: none;
-    width: 100%;
-    box-shadow: 0 4px 14px rgba(108, 92, 231, 0.4);
-    transition: all 0.2s ease-in-out;
+    font-weight: 600 !important;
+    font-size: 1rem !important;
+    border-radius: 12px !important;
+    padding: 12px 24px !important;
+    border: none !important;
+    width: 100% !important;
+    box-shadow: 0 4px 14px rgba(108, 92, 231, 0.3) !important;
+    transition: all 0.2s ease !important;
 }
 
 div.stButton > button:hover {
-    background: linear-gradient(90deg, #5B4BD6, #8E86F5) !important;
     transform: translateY(-2px);
-    box-shadow: 0 6px 18px rgba(108, 92, 231, 0.5);
+    box-shadow: 0 6px 18px rgba(108, 92, 231, 0.4) !important;
 }
 
+/* File Uploader Custom Styling */
 [data-testid="stFileUploaderDropzone"] {
-    border-radius: 14px;
-    border: 2px dashed #A29BFE !important;
+    border-radius: 12px !important;
+    border: 2px dashed #C0B7FE !important;
     background: #FAF9FF !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: space-between !important;
-    padding: 12px 16px !important;
 }
 
 [data-testid="stFileUploaderDropzone"] button {
-    position: static !important;
-    margin-left: 12px !important;
+    background-color: #6C5CE7 !important;
+    color: #FFFFFF !important;
+    border-radius: 8px !important;
+    border: none !important;
 }
 
-[data-testid="stFileUploaderDropzoneInstructions"] {
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: center !important;
-}
-
-div[role="radiogroup"] {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
+/* Radio Group Custom Styling */
 div[role="radiogroup"] label {
+    background: #FAFAFF !important;
+    padding: 10px 16px;
+    border-radius: 10px;
+    border: 1px solid #E2E0F0 !important;
+    transition: all 0.2s ease;
+}
+
+div[role="radiogroup"] label:hover {
+    border-color: #6C5CE7 !important;
     background: #F5F3FF !important;
-    padding: 12px 18px;
-    border-radius: 12px;
-    border: 1px solid #E0D9FF !important;
-    width: 100%;
 }
-
-div[data-testid="stAlert"] {
-    border-radius: 12px;
-}
-
-details {
-    border-radius: 12px !important;
-    background: #FFFFFF !important;
-}
-
 </style>
-""", unsafe_allow_html=True)
-
+""",
+    unsafe_allow_html=True,
+)
 
 # =========================================================
 # HEADER
 # =========================================================
-
-st.markdown("""
+st.markdown(
+    """
 <div class="main-header">
-    <img src="https://cdn-icons-png.flaticon.com/512/2436/2436874.png" width="90" style="margin-bottom: 10px;" />
+    <img src="https://cdn-icons-png.flaticon.com/512/2436/2436874.png" width="80" style="margin-bottom: 5px;" />
     <h1>AI Study & Assignment Planner</h1>
     <p>Upload your syllabus or assignment and let AI create a personalized study plan for you.</p>
 </div>
-""", unsafe_allow_html=True)
-
+""",
+    unsafe_allow_html=True,
+)
 
 # =========================================================
 # SESSION STATE
 # =========================================================
-
 if "extracted_text" not in st.session_state:
     st.session_state.extracted_text = ""
-
 
 # =========================================================
 # BASIC DETAILS
 # =========================================================
-
-st.markdown("""
+st.markdown(
+    """
 <div class="card">
-<div style="display:flex; align-items:center; gap:12px; margin-bottom:10px;">
-<img src="https://cdn-icons-png.flaticon.com/512/2921/2921222.png" width="36" />
+<div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
+<img src="https://cdn-icons-png.flaticon.com/512/2921/2921222.png" width="32" />
 <h2 style="margin:0;">Basic Details</h2>
 </div>
-""", unsafe_allow_html=True)
+""",
+    unsafe_allow_html=True,
+)
 
 col1, col2 = st.columns(2)
 
 with col1:
     subject = st.text_input("Subject Name")
     study_hours = st.number_input(
-        "Study Hours per Day",
-        min_value=1,
-        max_value=16,
-        value=2
+        "Study Hours per Day", min_value=1, max_value=16, value=2
     )
 
 with col2:
     deadline = st.date_input("Exam / Assignment Deadline")
     level = st.selectbox(
-        "Current Level",
-        ["Beginner", "Intermediate", "Advanced"]
+        "Current Level", ["Beginner", "Intermediate", "Advanced"]
     )
 
 goal = st.text_area(
-    "Goal (e.g., Pass the exam, Score above 80%, Finish assignment)"
+    "Goal (e.g., Pass the exam, Score above 80%, Finish assignment)", height=100
 )
 
-st.markdown('</div>', unsafe_allow_html=True)
-
+st.markdown("</div>", unsafe_allow_html=True)
 
 # =========================================================
 # MATERIAL
 # =========================================================
-
-st.markdown("""
+st.markdown(
+    """
 <div class="card">
-<div style="display:flex; align-items:center; gap:12px; margin-bottom:10px;">
-<img src="https://cdn-icons-png.flaticon.com/512/3143/3143460.png" width="36" />
+<div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
+<img src="https://cdn-icons-png.flaticon.com/512/3143/3143460.png" width="32" />
 <h2 style="margin:0;">Syllabus / Assignment Material</h2>
 </div>
-""", unsafe_allow_html=True)
-
-input_method = st.radio(
-    "Select Input Method:",
-    ["Upload File (PDF/DOCX/TXT)", "Paste Text"]
+""",
+    unsafe_allow_html=True,
 )
 
-
-# =========================================================
-# FILE UPLOAD
-# =========================================================
+input_method = st.radio(
+    "Select Input Method:", ["Upload File (PDF/DOCX/TXT)", "Paste Text"]
+)
 
 if input_method == "Upload File (PDF/DOCX/TXT)":
-
     uploaded_file = st.file_uploader(
-        "Upload a PDF, DOCX, or TXT file",
-        type=["pdf", "docx", "txt"]
+        "Upload a PDF, DOCX, or TXT file", type=["pdf", "docx", "txt"]
     )
 
     if uploaded_file is not None:
-
         text = ""
-
         if uploaded_file.name.endswith(".pdf"):
-
             import PyPDF2
 
             reader = PyPDF2.PdfReader(uploaded_file)
-
             for page in reader.pages:
                 text += page.extract_text() or ""
-
         elif uploaded_file.name.endswith(".docx"):
-
             import docx
 
             doc = docx.Document(uploaded_file)
-
             for para in doc.paragraphs:
                 text += para.text + "\n"
-
             for table in doc.tables:
-
                 for row in table.rows:
-
                     for cell in row.cells:
                         text += cell.text + " "
-
                     text += "\n"
-
         elif uploaded_file.name.endswith(".txt"):
-
             text = uploaded_file.read().decode("utf-8")
 
         st.session_state.extracted_text = text
 
         if text.strip():
-
             st.success("File processed successfully.")
-
             with st.expander("View Extracted Text"):
-
                 st.write(
-                    text[:2000] +
-                    ("..." if len(text) > 2000 else "")
+                    text[:2000] + ("..." if len(text) > 2000 else "")
                 )
-
         else:
-
             st.warning(
                 "No text could be extracted from this file. Try another file."
             )
-
-
-# =========================================================
-# PASTE TEXT
-# =========================================================
-
 else:
-
     pasted = st.text_area(
-        "Paste your syllabus/assignment text here",
-        height=200
+        "Paste your syllabus/assignment text here", height=200
     )
-
     st.session_state.extracted_text = pasted
 
-
-st.markdown('</div>', unsafe_allow_html=True)
-
+st.markdown("</div>", unsafe_allow_html=True)
 
 # =========================================================
 # GENERATE STUDY PLAN
 # =========================================================
-
 if st.button("Generate Study Plan"):
-
     if not st.session_state.extracted_text.strip():
-
-        st.error(
-            "Please upload a file or paste text first."
-        )
-
+        st.error("Please upload a file or paste text first.")
     else:
-
-        with st.spinner(
-            "Gemini is analyzing your material..."
-        ):
-
+        with st.spinner("Gemini is analyzing your material..."):
             prompt = f"""You are a study planner AI. Based on the details and material below, respond using EXACTLY this format with markdown headers:
 
 ## Important Topics
@@ -468,16 +313,7 @@ Material:
 
             response = model.generate_content(prompt)
 
-        st.markdown(
-            '<div class="card">',
-            unsafe_allow_html=True
-        )
-
+        st.markdown('<div class="card">', unsafe_allow_html=True)
         st.subheader("Your Study Plan")
-
         st.markdown(response.text)
-
-        st.markdown(
-            '</div>',
-            unsafe_allow_html=True
-        )
+        st.markdown("</div>", unsafe_allow_html=True)

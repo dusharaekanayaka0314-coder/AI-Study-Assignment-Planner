@@ -19,258 +19,63 @@ st.set_page_config(
     layout="centered"
 )
 
-# =========================================================
-# CUSTOM LIGHT-THEME STYLING
-# =========================================================
+# Custom CSS for Header, Cards, and Layout without overriding input internals
 st.markdown(
     """
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
-
-/* Force font across application */
-html, body, [class*="css"], p, span, label, div, h1, h2, h3, h4 {
-    font-family: 'Poppins', sans-serif !important;
+/* Clean Background for App */
+.stApp {
+    background-color: #FFFFFF;
 }
 
-[data-testid="stAppViewContainer"],
-[data-testid="stHeader"],
-.main, body, .stApp {
-    background-color: #FFFFFF !important;
-    color: #1E1E2F !important;
-}
-
-label, .stMarkdown, p, span {
-    color: #1E1E2F !important;
-}
-
-/* Universal Light Input Backgrounds */
-div[data-baseweb="input"],
-div[data-baseweb="base-input"],
-div[data-baseweb="textarea"],
-div[data-baseweb="select"],
-div[data-baseweb="select"] > div {
-    background-color: #FFFFFF !important;
-    border: 1px solid #D8D2F5 !important;
-    border-radius: 8px !important;
-    color: #1E1E2F !important;
-}
-
-/* Force Text Fill Colors */
-input, textarea {
-    background-color: #FFFFFF !important;
-    color: #1E1E2F !important;
-    -webkit-text-fill-color: #1E1E2F !important;
-}
-
-/* Focus States */
-div[data-baseweb="input"]:focus-within,
-div[data-baseweb="textarea"]:focus-within,
-div[data-baseweb="select"] > div:focus-within {
-    border-color: #6C5CE7 !important;
-    box-shadow: 0 0 0 1px #6C5CE7 !important;
-}
-
-input::placeholder, textarea::placeholder {
-    color: #8E8A9F !important;
-    -webkit-text-fill-color: #8E8A9F !important;
-}
-
-/* =========================================================
-   FIX: DATE INPUT FIELD (DEADLINE)
-   ========================================================= */
-[data-testid="stDateInput"] {
-    color-scheme: light !important;
-}
-
-[data-testid="stDateInput"] div[data-baseweb="input"] {
-    background-color: #FFFFFF !important;
-}
-
-[data-testid="stDateInput"] input {
-    background-color: #FFFFFF !important;
-    color: #1E1E2F !important;
-    -webkit-text-fill-color: #1E1E2F !important;
-}
-
-[data-testid="stDateInput"] svg {
-    fill: #6C5CE7 !important;
-}
-
-div[data-baseweb="calendar"] {
-    background-color: #FFFFFF !important;
-    color: #1E1E2F !important;
-    color-scheme: light !important;
-}
-
-div[data-baseweb="calendar"] * {
-    color: #1E1E2F !important;
-}
-
-/* =========================================================
-   FIX: SELECTBOX DROPDOWN ARROW & CONTAINER
-   ========================================================= */
-[data-testid="stSelectbox"] div[data-baseweb="select"] {
-    background-color: #FFFFFF !important;
-}
-
-[data-testid="stSelectbox"] div[role="button"] {
-    background-color: #FFFFFF !important;
-}
-
-/* Removes the dark background behind the arrow icon */
-[data-testid="stSelectbox"] [data-baseweb="icon"] {
-    background-color: #F5F3FF !important;
-    border-top-right-radius: 8px !important;
-    border-bottom-right-radius: 8px !important;
-}
-
-[data-testid="stSelectbox"] svg {
-    fill: #6C5CE7 !important;
-}
-
-div[data-baseweb="popover"],
-div[data-baseweb="menu"],
-ul[role="listbox"] {
-    background-color: #FFFFFF !important;
-    border: 1px solid #E0D9FF !important;
-    border-radius: 8px !important;
-}
-
-li[role="option"] {
-    background-color: #FFFFFF !important;
-    color: #1E1E2F !important;
-}
-
-li[role="option"]:hover {
-    background-color: #F5F3FF !important;
-    color: #6C5CE7 !important;
-}
-
-/* =========================================================
-   NUMBER INPUT BOX & BUTTONS
-   ========================================================= */
-[data-testid="stNumberInput"] > div {
-    background-color: #FFFFFF !important;
-    border: 1px solid #D8D2F5 !important;
-    border-radius: 8px !important;
-}
-
-[data-testid="stNumberInput"] input {
-    background-color: #FFFFFF !important;
-    color: #1E1E2F !important;
-    -webkit-text-fill-color: #1E1E2F !important;
-}
-
-[data-testid="stNumberInput"] button {
-    background-color: #F5F3FF !important;
-    color: #1E1E2F !important;
-    border: none !important;
-    border-left: 1px solid #E0D9FF !important;
-}
-
-[data-testid="stNumberInput"] button:hover {
-    background-color: #EDE7FF !important;
-    color: #6C5CE7 !important;
-}
-
-/* =========================================================
-   FILE UPLOAD ZONE
-   ========================================================= */
-[data-testid="stFileUploader"] {
-    background-color: #FFFFFF !important;
-    color: #1E1E2F !important;
-}
-
-[data-testid="stFileUploaderDropzone"] {
-    background-color: #FAF9FF !important;
-    border: 2px dashed #A29BFE !important;
-    border-radius: 14px !important;
-    padding: 12px 16px !important;
-}
-
-[data-testid="stFileUploaderDropzone"] * {
-    color: #1E1E2F !important;
-}
-
-[data-testid="stFileUploaderDropzone"] button {
-    background-color: #6C5CE7 !important;
-    color: #FFFFFF !important;
-    border: none !important;
-    border-radius: 8px !important;
-}
-
-[data-testid="stFileUploaderDropzone"] button:hover {
-    background-color: #5B4BD6 !important;
-}
-
-/* =========================================================
-   RADIO BUTTONS
-   ========================================================= */
-div[role="radiogroup"] {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-div[role="radiogroup"] label {
-    background-color: #F5F3FF !important;
-    padding: 12px 18px;
-    border-radius: 12px;
-    border: 1px solid #E0D9FF !important;
-    width: 100%;
-}
-
-/* =========================================================
-   LAYOUT CARDS & HEADER
-   ========================================================= */
+/* Custom Header */
 .main-header {
     text-align: center;
     padding: 30px 20px;
     background: linear-gradient(135deg, #6C5CE7 0%, #A29BFE 100%);
-    border-radius: 20px;
+    border-radius: 16px;
     margin-bottom: 25px;
-    box-shadow: 0 8px 24px rgba(108, 92, 231, 0.35);
+    color: #FFFFFF;
 }
 
-.main-header h1, .main-header p {
+.main-header h1 {
     color: #FFFFFF !important;
+    margin-bottom: 8px;
 }
 
-.card {
-    background: #FFFFFF !important;
-    padding: 24px;
-    border-radius: 18px;
-    box-shadow: 0 6px 18px rgba(108, 92, 231, 0.12);
-    margin-bottom: 22px;
-    border: 1px solid #EDE9FE;
+.main-header p {
+    color: #F0EDFF !important;
+    font-size: 1.05rem;
 }
 
-.card h2 {
-    color: #6C5CE7 !important;
+/* Card Section Containers */
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 15px;
 }
 
+.card-header h3 {
+    margin: 0;
+    color: #6C5CE7;
+}
+
+/* Generate Button Styling */
 div.stButton > button {
     background: linear-gradient(90deg, #6C5CE7, #A29BFE) !important;
     color: #FFFFFF !important;
     font-weight: 700;
-    font-size: 1.05rem;
-    border-radius: 12px;
+    font-size: 1.1rem;
+    border-radius: 10px;
     padding: 12px 24px;
     border: none;
     width: 100%;
-    box-shadow: 0 4px 14px rgba(108, 92, 231, 0.4);
-    transition: all 0.2s ease-in-out;
+    margin-top: 10px;
 }
 
 div.stButton > button:hover {
     background: linear-gradient(90deg, #5B4BD6, #8E86F5) !important;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 18px rgba(108, 92, 231, 0.5);
-}
-
-details {
-    border-radius: 12px !important;
-    background: #FFFFFF !important;
 }
 </style>
 """,
@@ -283,7 +88,7 @@ details {
 st.markdown(
     """
 <div class="main-header">
-    <img src="https://cdn-icons-png.flaticon.com/512/2436/2436874.png" width="90" style="margin-bottom: 10px;" />
+    <img src="https://cdn-icons-png.flaticon.com/512/2436/2436874.png" width="80" style="margin-bottom: 10px;" />
     <h1>AI Study & Assignment Planner</h1>
     <p>Upload your syllabus or assignment and let AI create a personalized study plan for you.</p>
 </div>
@@ -291,19 +96,17 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-# Session State Initializer
 if "extracted_text" not in st.session_state:
     st.session_state.extracted_text = ""
 
 # =========================================================
-# BASIC DETAILS CARD
+# BASIC DETAILS SECTION
 # =========================================================
 st.markdown(
     """
-<div class="card">
-<div style="display:flex; align-items:center; gap:12px; margin-bottom:10px;">
-    <img src="https://cdn-icons-png.flaticon.com/512/2921/2921222.png" width="36" />
-    <h2 style="margin:0;">Basic Details</h2>
+<div class="card-header">
+    <img src="https://cdn-icons-png.flaticon.com/512/2921/2921222.png" width="32" />
+    <h3>Basic Details</h3>
 </div>
 """,
     unsafe_allow_html=True,
@@ -327,17 +130,16 @@ goal = st.text_area(
     "Goal (e.g., Pass the exam, Score above 80%, Finish assignment)"
 )
 
-st.markdown("</div>", unsafe_allow_html=True)
+st.divider()
 
 # =========================================================
-# SYLLABUS / ASSIGNMENT MATERIAL CARD
+# SYLLABUS / ASSIGNMENT MATERIAL SECTION
 # =========================================================
 st.markdown(
     """
-<div class="card">
-<div style="display:flex; align-items:center; gap:12px; margin-bottom:10px;">
-    <img src="https://cdn-icons-png.flaticon.com/512/3143/3143460.png" width="36" />
-    <h2 style="margin:0;">Syllabus / Assignment Material</h2>
+<div class="card-header">
+    <img src="https://cdn-icons-png.flaticon.com/512/3143/3143460.png" width="32" />
+    <h3>Syllabus / Assignment Material</h3>
 </div>
 """,
     unsafe_allow_html=True,
@@ -391,10 +193,10 @@ else:
     )
     st.session_state.extracted_text = pasted
 
-st.markdown("</div>", unsafe_allow_html=True)
+st.divider()
 
 # =========================================================
-# GENERATE STUDY PLAN
+# GENERATE PLAN
 # =========================================================
 if st.button("Generate Study Plan"):
     if not st.session_state.extracted_text.strip():
@@ -429,7 +231,5 @@ Material:
 """
             response = model.generate_content(prompt)
 
-        st.markdown('<div class="card">', unsafe_allow_html=True)
         st.subheader("Your Study Plan")
         st.markdown(response.text)
-        st.markdown("</div>", unsafe_allow_html=True)

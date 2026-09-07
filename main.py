@@ -113,16 +113,28 @@ label, .stMarkdown, p, span {
     color: #6C5CE7 !important;
     fill: #6C5CE7 !important;
 }
-
-div[data-baseweb="calendar"] {
+div[data-baseweb="calendar"],
+div[data-baseweb="calendar"] *,
+div[data-baseweb="popover"],
+div[data-baseweb="popover"] *,
+div[data-baseweb="datepicker"],
+div[data-baseweb="datepicker"] * {
     background-color: #FFFFFF !important;
     color: #1E1E2F !important;
     color-scheme: light !important;
 }
 
-div[data-baseweb="calendar"] * {
-    color: #1E1E2F !important;
+/* Selected day highlight stays purple with white text */
+div[data-baseweb="calendar"] div[aria-selected="true"] {
+    background-color: #6C5CE7 !important;
+    color: #FFFFFF !important;
 }
+
+/* Today's date border */
+div[data-baseweb="calendar"] div[aria-label*="Today"] {
+    border: 1px solid #6C5CE7 !important;
+}
+
 /* SELECTBOX - CURRENT LEVEL */
 [data-testid="stSelectbox"] * {
     background-color: #FFFFFF !important;

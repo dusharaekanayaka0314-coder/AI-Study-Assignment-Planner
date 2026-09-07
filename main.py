@@ -21,51 +21,58 @@ st.set_page_config(
 )
 
 # =========================================================
-# MODERN UI STYLING
+# MODERN VIBRANT UI STYLING
 # =========================================================
 st.markdown(
     """
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
-/* Clean font inheritance without breaking internal Streamlit components */
 html, body, .stApp {
     font-family: 'Plus Jakarta Sans', sans-serif !important;
 }
 
-/* Full Screen Background Image with Overlay */
+/* VIBRANT & COLORFUL FULL BACKGROUND (Light overlay so it stays bright) */
 .stApp {
     background: linear-gradient(
-        rgba(248, 250, 252, 0.88), 
-        rgba(248, 250, 252, 0.92)
+        135deg,
+        rgba(15, 23, 42, 0.25) 0%,
+        rgba(79, 70, 229, 0.15) 100%
     ),
-    url('https://images.unsplash.com/photo-1516979187457-637abb4f9353?q=80&w=2070&auto=format&fit=crop') !important;
+    url('https://images.unsplash.com/photo-1579546929518-9e396f3cc809?q=80&w=2070&auto=format&fit=crop') !important;
     background-size: cover !important;
     background-position: center !important;
     background-attachment: fixed !important;
+}
+
+/* Main Container Card Styling for Readability */
+[data-testid="stVerticalBlock"] > div {
+    border-radius: 20px;
 }
 
 /* Field Label Styling */
 label, .stMarkdown label p {
     font-size: 0.95rem !important;
     font-weight: 700 !important;
-    color: #1E293B !important;
+    color: #0F172A !important;
 }
 
 /* Header Card Styling */
 .main-header {
     text-align: center;
-    padding: 40px 24px;
-    background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
+    padding: 42px 24px;
+    background: linear-gradient(135deg, rgba(79, 70, 229, 0.95) 0%, rgba(124, 58, 237, 0.95) 100%);
+    backdrop-filter: blur(12px);
     border-radius: 24px;
     margin-bottom: 28px;
-    box-shadow: 0 12px 30px -8px rgba(79, 70, 229, 0.35);
+    box-shadow: 0 16px 36px -10px rgba(79, 70, 229, 0.45);
     color: #FFFFFF;
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .main-header h1 {
     color: #FFFFFF !important;
-    font-size: 2.2rem !important;
+    font-size: 2.3rem !important;
     font-weight: 800 !important;
     margin-bottom: 8px !important;
     letter-spacing: -0.02em;
@@ -87,8 +94,13 @@ label, .stMarkdown label p {
     font-size: 1.25rem;
     font-weight: 800;
     color: #0F172A;
-    margin-bottom: 20px;
+    margin-bottom: 18px;
     margin-top: 10px;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(8px);
+    padding: 10px 16px;
+    border-radius: 14px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
 }
 
 .card-title span {
@@ -104,7 +116,8 @@ label, .stMarkdown label p {
 /* Custom Styled Tabs for File / Text Selection */
 .stTabs [data-baseweb="tab-list"] {
     gap: 12px;
-    background-color: #E2E8F0;
+    background-color: rgba(226, 232, 240, 0.8);
+    backdrop-filter: blur(8px);
     padding: 6px;
     border-radius: 14px;
     margin-bottom: 20px;
@@ -123,20 +136,20 @@ label, .stMarkdown label p {
 .stTabs [aria-selected="true"] {
     background-color: #FFFFFF !important;
     color: #4F46E5 !important;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
 }
 
-/* =========================================================
-   PURPLE FILE UPLOADER BUTTON & OVERLAP FIX
-   ========================================================= */
+/* Glassmorphism File Uploader Box */
 [data-testid="stFileUploaderDropzone"] {
-    background-color: rgba(255, 255, 255, 0.85) !important;
-    border: 2px dashed #C7D2FE !important;
-    border-radius: 16px !important;
-    padding: 20px !important;
+    background-color: rgba(255, 255, 255, 0.9) !important;
+    backdrop-filter: blur(10px) !important;
+    border: 2px dashed #818CF8 !important;
+    border-radius: 18px !important;
+    padding: 24px !important;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05) !important;
 }
 
-/* Purple Gradient Button inside Dropzone */
+/* Purple Gradient Upload Button */
 [data-testid="stFileUploaderDropzone"] button {
     background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%) !important;
     color: #FFFFFF !important;
@@ -144,16 +157,16 @@ label, .stMarkdown label p {
     border-radius: 10px !important;
     padding: 10px 22px !important;
     font-weight: 700 !important;
-    box-shadow: 0 4px 14px rgba(79, 70, 229, 0.3) !important;
+    box-shadow: 0 4px 14px rgba(79, 70, 229, 0.35) !important;
     transition: all 0.2s ease-in-out !important;
 }
 
 [data-testid="stFileUploaderDropzone"] button:hover {
     transform: translateY(-1px) !important;
-    box-shadow: 0 6px 18px rgba(79, 70, 229, 0.4) !important;
+    box-shadow: 0 6px 18px rgba(79, 70, 229, 0.45) !important;
 }
 
-/* Fix overlapping inner text elements inside Streamlit uploader button */
+/* Prevent text overlapping in Streamlit button */
 [data-testid="stFileUploaderDropzone"] button div,
 [data-testid="stFileUploaderDropzone"] button span,
 [data-testid="stFileUploaderDropzone"] button p {
@@ -164,11 +177,18 @@ label, .stMarkdown label p {
     padding: 0 !important;
 }
 
-/* Remove duplicate CSS pseudo elements */
 [data-testid="stFileUploaderDropzone"] button::before,
 [data-testid="stFileUploaderDropzone"] button::after {
     content: none !important;
     display: none !important;
+}
+
+/* Input Fields Glass Styling */
+.stTextInput input, .stSelectbox select, .stTextArea textarea, .stNumberInput input {
+    background-color: rgba(255, 255, 255, 0.9) !important;
+    backdrop-filter: blur(8px) !important;
+    border-radius: 12px !important;
+    border: 1px solid #CBD5E1 !important;
 }
 
 /* Primary Action Button (Generate Study Plan) */
@@ -181,23 +201,24 @@ div.stButton > button {
     padding: 16px 28px !important;
     border: none !important;
     width: 100% !important;
-    box-shadow: 0 8px 20px rgba(79, 70, 229, 0.35) !important;
+    box-shadow: 0 8px 24px rgba(79, 70, 229, 0.4) !important;
     transition: all 0.25s ease-in-out !important;
     margin-top: 15px;
 }
 
 div.stButton > button:hover {
     transform: translateY(-2px) !important;
-    box-shadow: 0 12px 24px rgba(79, 70, 229, 0.45) !important;
+    box-shadow: 0 12px 28px rgba(79, 70, 229, 0.5) !important;
 }
 
 /* Output Box Container */
 .output-box {
     background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(12px);
     border: 1px solid #E2E8F0;
     border-radius: 20px;
     padding: 32px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
     margin-top: 28px;
 }
 </style>

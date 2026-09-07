@@ -21,7 +21,7 @@ st.set_page_config(
 )
 
 # =========================================================
-# MODERN UI STYLING WITH FULL BACKGROUND IMAGE
+# MODERN UI STYLING
 # =========================================================
 st.markdown(
     """
@@ -126,29 +126,12 @@ label, .stMarkdown label p {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
 }
 
-/* =========================================================
-   CLEAN & SAFE FILE UPLOADER STYLING (FIXES OVERLAPPING TEXT)
-   ========================================================= */
+/* Clean Dropzone Frame (Leaves native button untouched to fix overlap) */
 [data-testid="stFileUploaderDropzone"] {
     background-color: rgba(255, 255, 255, 0.8) !important;
     border: 2px dashed #C7D2FE !important;
     border-radius: 16px !important;
-    padding: 24px !important;
-}
-
-/* Clear all forced text hacks on file uploader internal elements */
-[data-testid="stFileUploaderDropzone"] button {
-    border-radius: 10px !important;
-    border: 1px solid #4F46E5 !important;
-    background: #EEF2FF !important;
-    color: #4F46E5 !important;
-    font-weight: 600 !important;
-    transition: all 0.2s ease-in-out !important;
-}
-
-[data-testid="stFileUploaderDropzone"] button:hover {
-    background: #4F46E5 !important;
-    color: #FFFFFF !important;
+    padding: 20px !important;
 }
 
 /* Primary Action Button (Generate Study Plan) */

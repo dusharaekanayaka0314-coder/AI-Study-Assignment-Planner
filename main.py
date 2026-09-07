@@ -5,6 +5,9 @@ import google.generativeai as genai
 import PyPDF2
 import streamlit as st
 
+# =========================================================
+# CONFIG & INITIALIZATION
+# =========================================================
 load_dotenv()
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
@@ -12,15 +15,19 @@ genai.configure(api_key=GEMINI_API_KEY)
 model = genai.GenerativeModel("gemini-3.6-flash")
 
 st.set_page_config(
-    page_title="AI Study & Assignment Planner", layout="centered"
+    page_title="AI Study & Assignment Planner",
+    layout="centered"
 )
 
-# Custom Styling
+# =========================================================
+# CUSTOM LIGHT-THEME STYLING
+# =========================================================
 st.markdown(
     """
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
 
+/* Force font across application */
 html, body, [class*="css"], p, span, label, div, h1, h2, h3, h4 {
     font-family: 'Poppins', sans-serif !important;
 }
@@ -36,44 +43,55 @@ label, .stMarkdown, p, span {
     color: #1E1E2F !important;
 }
 
-/* Global Text Inputs, TextAreas, Selectboxes, and Date Inputs Override */
-div[data-baseweb="input"] input,
-div[data-baseweb="textarea"] textarea,
+/* Universal Light Input Backgrounds */
+div[data-baseweb="input"],
+div[data-baseweb="base-input"],
+div[data-baseweb="textarea"],
 div[data-baseweb="select"] > div {
+    background-color: #FFFFFF !important;
+    border: 1px solid #D8D2F5 !important;
+    border-radius: 8px !important;
+    color: #1E1E2F !important;
+}
+
+/* Force Text Fill Colors */
+input, textarea {
     background-color: #FFFFFF !important;
     color: #1E1E2F !important;
     -webkit-text-fill-color: #1E1E2F !important;
-    border: 1px solid #D8D2F5 !important;
-    border-radius: 8px !important;
 }
 
-/* Number Input Styling */
-[data-testid="stNumberInput"] {
-    width: 100% !important;
+/* Focus States */
+div[data-baseweb="input"]:focus-within,
+div[data-baseweb="textarea"]:focus-within,
+div[data-baseweb="select"] > div:focus-within {
+    border-color: #6C5CE7 !important;
+    box-shadow: 0 0 0 1px #6C5CE7 !important;
 }
 
+input::placeholder, textarea::placeholder {
+    color: #8E8A9F !important;
+    -webkit-text-fill-color: #8E8A9F !important;
+}
+
+/* Number Input Box & Buttons */
 [data-testid="stNumberInput"] > div {
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: stretch !important;
-    width: 100% !important;
     background-color: #FFFFFF !important;
     border: 1px solid #D8D2F5 !important;
     border-radius: 8px !important;
-    overflow: hidden !important;
-    min-height: 40px !important;
+}
+
+[data-testid="stNumberInput"] input {
+    background-color: #FFFFFF !important;
+    color: #1E1E2F !important;
+    -webkit-text-fill-color: #1E1E2F !important;
 }
 
 [data-testid="stNumberInput"] button {
-    width: 38px !important;
-    min-width: 38px !important;
-    height: 38px !important;
     background-color: #F5F3FF !important;
     color: #1E1E2F !important;
     border: none !important;
     border-left: 1px solid #E0D9FF !important;
-    font-size: 18px !important;
-    font-weight: 600 !important;
 }
 
 [data-testid="stNumberInput"] button:hover {
@@ -81,15 +99,26 @@ div[data-baseweb="select"] > div {
     color: #6C5CE7 !important;
 }
 
-/* Calendar Popover Fixes */
-div[data-baseweb="calendar"],
+/* Selectbox & Dropdown Options */
+[data-testid="stSelectbox"] div[data-baseweb="select"] {
+    background-color: #FFFFFF !important;
+}
+
+[data-testid="stSelectbox"] svg {
+    fill: #1E1E2F !important;
+}
+
 div[data-baseweb="popover"],
 div[data-baseweb="menu"],
-ul[role="listbox"],
+ul[role="listbox"] {
+    background-color: #FFFFFF !important;
+    border: 1px solid #E0D9FF !important;
+    border-radius: 8px !important;
+}
+
 li[role="option"] {
     background-color: #FFFFFF !important;
     color: #1E1E2F !important;
-    color-scheme: light !important;
 }
 
 li[role="option"]:hover {
@@ -97,7 +126,31 @@ li[role="option"]:hover {
     color: #6C5CE7 !important;
 }
 
-/* File Uploader Custom Styling */
+/* Date Input & Calendar Overlay */
+[data-testid="stDateInput"] {
+    color-scheme: light !important;
+}
+
+[data-testid="stDateInput"] svg {
+    fill: #6C5CE7 !important;
+}
+
+div[data-baseweb="calendar"] {
+    background-color: #FFFFFF !important;
+    color: #1E1E2F !important;
+    color-scheme: light !important;
+}
+
+div[data-baseweb="calendar"] * {
+    color: #1E1E2F !important;
+}
+
+/* File Upload Zone */
+[data-testid="stFileUploader"] {
+    background-color: #FFFFFF !important;
+    color: #1E1E2F !important;
+}
+
 [data-testid="stFileUploaderDropzone"] {
     background-color: #FAF9FF !important;
     border: 2px dashed #A29BFE !important;
@@ -105,11 +158,19 @@ li[role="option"]:hover {
     padding: 12px 16px !important;
 }
 
+[data-testid="stFileUploaderDropzone"] * {
+    color: #1E1E2F !important;
+}
+
 [data-testid="stFileUploaderDropzone"] button {
     background-color: #6C5CE7 !important;
     color: #FFFFFF !important;
-    border-radius: 8px !important;
     border: none !important;
+    border-radius: 8px !important;
+}
+
+[data-testid="stFileUploaderDropzone"] button:hover {
+    background-color: #5B4BD6 !important;
 }
 
 /* Radio Buttons */
@@ -127,7 +188,7 @@ div[role="radiogroup"] label {
     width: 100%;
 }
 
-/* Header & Cards */
+/* Layout Cards & Header */
 .main-header {
     text-align: center;
     padding: 30px 20px;
@@ -164,37 +225,53 @@ div.stButton > button {
     border: none;
     width: 100%;
     box-shadow: 0 4px 14px rgba(108, 92, 231, 0.4);
+    transition: all 0.2s ease-in-out;
 }
 
 div.stButton > button:hover {
     background: linear-gradient(90deg, #5B4BD6, #8E86F5) !important;
     transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(108, 92, 231, 0.5);
+}
+
+details {
+    border-radius: 12px !important;
+    background: #FFFFFF !important;
 }
 </style>
 """,
     unsafe_allow_html=True,
 )
 
-# Header Section
+# =========================================================
+# HEADER
+# =========================================================
 st.markdown(
-    """<div class="main-header">
+    """
+<div class="main-header">
     <img src="https://cdn-icons-png.flaticon.com/512/2436/2436874.png" width="90" style="margin-bottom: 10px;" />
     <h1>AI Study & Assignment Planner</h1>
     <p>Upload your syllabus or assignment and let AI create a personalized study plan for you.</p>
-</div>""",
+</div>
+""",
     unsafe_allow_html=True,
 )
 
+# Session State Initializer
 if "extracted_text" not in st.session_state:
     st.session_state.extracted_text = ""
 
-# Basic Details Section
+# =========================================================
+# BASIC DETAILS CARD
+# =========================================================
 st.markdown(
-    """<div class="card">
+    """
+<div class="card">
 <div style="display:flex; align-items:center; gap:12px; margin-bottom:10px;">
     <img src="https://cdn-icons-png.flaticon.com/512/2921/2921222.png" width="36" />
     <h2 style="margin:0;">Basic Details</h2>
-</div>""",
+</div>
+""",
     unsafe_allow_html=True,
 )
 
@@ -218,13 +295,17 @@ goal = st.text_area(
 
 st.markdown("</div>", unsafe_allow_html=True)
 
-# Material Input Section
+# =========================================================
+# SYLLABUS / ASSIGNMENT MATERIAL CARD
+# =========================================================
 st.markdown(
-    """<div class="card">
+    """
+<div class="card">
 <div style="display:flex; align-items:center; gap:12px; margin-bottom:10px;">
     <img src="https://cdn-icons-png.flaticon.com/512/3143/3143460.png" width="36" />
     <h2 style="margin:0;">Syllabus / Assignment Material</h2>
-</div>""",
+</div>
+""",
     unsafe_allow_html=True,
 )
 
@@ -278,7 +359,9 @@ else:
 
 st.markdown("</div>", unsafe_allow_html=True)
 
-# Generation Section
+# =========================================================
+# GENERATE STUDY PLAN
+# =========================================================
 if st.button("Generate Study Plan"):
     if not st.session_state.extracted_text.strip():
         st.error("Please upload a file or paste text first.")

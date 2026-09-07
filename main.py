@@ -32,11 +32,7 @@ label, .stMarkdown, p, span {
     color: #1E1E2F !important;
 }
 
-
-/* =====================================================
-   FIX ONLY: TEXT INPUT - SUBJECT NAME
-   ===================================================== */
-
+/* TEXT INPUT - SUBJECT NAME */
 [data-testid="stTextInput"] div[data-baseweb="input"] {
     background-color: #FFFFFF !important;
     border: 1px solid #D8D2F5 !important;
@@ -53,11 +49,7 @@ label, .stMarkdown, p, span {
     box-shadow: none !important;
 }
 
-
-/* =====================================================
-   FIX ONLY: NUMBER INPUT - STUDY HOURS
-   ===================================================== */
-
+/* NUMBER INPUT - STUDY HOURS */
 [data-testid="stNumberInput"] div[data-baseweb="input"] {
     background-color: #FFFFFF !important;
     border: 1px solid #D8D2F5 !important;
@@ -79,11 +71,7 @@ label, .stMarkdown, p, span {
     color: #1E1E2F !important;
 }
 
-
-/* =====================================================
-   FIX ONLY: DATE INPUT - DEADLINE
-   ===================================================== */
-
+/* DATE INPUT - DEADLINE */
 [data-testid="stDateInput"] {
     color-scheme: light !important;
 }
@@ -101,6 +89,11 @@ label, .stMarkdown, p, span {
     color: #1E1E2F !important;
 }
 
+[data-testid="stDateInput"] div[data-baseweb="input"] > div > div {
+    background-color: #FFFFFF !important;
+    color: #1E1E2F !important;
+}
+
 [data-testid="stDateInput"] input {
     background-color: #FFFFFF !important;
     color: #1E1E2F !important;
@@ -111,13 +104,11 @@ label, .stMarkdown, p, span {
     color-scheme: light !important;
 }
 
-/* Calendar icon */
 [data-testid="stDateInput"] svg {
     color: #6C5CE7 !important;
     fill: #6C5CE7 !important;
 }
 
-/* Calendar popup */
 div[data-baseweb="calendar"] {
     background-color: #FFFFFF !important;
     color: #1E1E2F !important;
@@ -128,11 +119,26 @@ div[data-baseweb="calendar"] * {
     color: #1E1E2F !important;
 }
 
+/* SELECTBOX - CURRENT LEVEL */
+[data-testid="stSelectbox"] div[data-baseweb="select"] > div {
+    background-color: #FFFFFF !important;
+    color: #1E1E2F !important;
+    border: 1px solid #D8D2F5 !important;
+}
 
-/* =====================================================
-   FIX ONLY: FILE UPLOADER
-   ===================================================== */
+[data-testid="stSelectbox"] svg {
+    fill: #1E1E2F !important;
+}
 
+/* TEXTAREA - GOAL, PASTE TEXT */
+[data-testid="stTextArea"] textarea {
+    background-color: #FFFFFF !important;
+    color: #1E1E2F !important;
+    -webkit-text-fill-color: #1E1E2F !important;
+    border: 1px solid #D8D2F5 !important;
+}
+
+/* FILE UPLOADER */
 [data-testid="stFileUploader"] {
     background-color: #FFFFFF !important;
     color: #1E1E2F !important;
@@ -143,6 +149,10 @@ div[data-baseweb="calendar"] * {
     border: 2px dashed #A29BFE !important;
     border-radius: 14px !important;
     color: #1E1E2F !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 12px 16px !important;
 }
 
 [data-testid="stFileUploaderDropzone"] * {
@@ -152,6 +162,9 @@ div[data-baseweb="calendar"] * {
 [data-testid="stFileUploaderDropzoneInstructions"] {
     background-color: transparent !important;
     color: #1E1E2F !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
 }
 
 [data-testid="stFileUploaderDropzone"] button,
@@ -160,6 +173,8 @@ div[data-baseweb="calendar"] * {
     color: #FFFFFF !important;
     border: none !important;
     border-radius: 8px !important;
+    position: static !important;
+    margin-left: 12px !important;
 }
 
 [data-testid="stFileUploaderDropzone"] button:hover,
@@ -168,11 +183,36 @@ div[data-baseweb="calendar"] * {
     color: #FFFFFF !important;
 }
 
+/* RADIO BUTTONS */
+div[role="radiogroup"] {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
 
-/* =====================================================
-   EXISTING DESIGN
-   ===================================================== */
+div[role="radiogroup"] label {
+    background-color: #F5F3FF !important;
+    padding: 12px 18px;
+    border-radius: 12px;
+    border: 1px solid #E0D9FF !important;
+    width: 100%;
+}
 
+div[role="radiogroup"] label div {
+    background-color: transparent !important;
+    color: #1E1E2F !important;
+}
+
+div[role="radiogroup"] label p {
+    color: #1E1E2F !important;
+}
+
+div[role="radiogroup"] label[data-baseweb="radio"] > div:first-child {
+    background-color: #FFFFFF !important;
+    border-color: #6C5CE7 !important;
+}
+
+/* EXISTING DESIGN */
 .main-header {
     text-align: center;
     padding: 30px 20px;
@@ -218,41 +258,6 @@ div.stButton > button:hover {
     box-shadow: 0 6px 18px rgba(108, 92, 231, 0.5);
 }
 
-[data-testid="stFileUploaderDropzone"] {
-    border-radius: 14px;
-    border: 2px dashed #A29BFE !important;
-    background: #FAF9FF !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: space-between !important;
-    padding: 12px 16px !important;
-}
-
-[data-testid="stFileUploaderDropzone"] button {
-    position: static !important;
-    margin-left: 12px !important;
-}
-
-[data-testid="stFileUploaderDropzoneInstructions"] {
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: center !important;
-}
-
-div[role="radiogroup"] {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-div[role="radiogroup"] label {
-    background: #F5F3FF !important;
-    padding: 12px 18px;
-    border-radius: 12px;
-    border: 1px solid #E0D9FF !important;
-    width: 100%;
-}
-
 div[data-testid="stAlert"] {
     border-radius: 12px;
 }
@@ -261,14 +266,8 @@ details {
     border-radius: 12px !important;
     background: #FFFFFF !important;
 }
-
 </style>
 """, unsafe_allow_html=True)
-
-
-# =========================================================
-# HEADER
-# =========================================================
 
 st.markdown("""
 <div class="main-header">
@@ -278,18 +277,8 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-
-# =========================================================
-# SESSION STATE
-# =========================================================
-
 if "extracted_text" not in st.session_state:
     st.session_state.extracted_text = ""
-
-
-# =========================================================
-# BASIC DETAILS
-# =========================================================
 
 st.markdown("""
 <div class="card">
@@ -303,30 +292,15 @@ col1, col2 = st.columns(2)
 
 with col1:
     subject = st.text_input("Subject Name")
-    study_hours = st.number_input(
-        "Study Hours per Day",
-        min_value=1,
-        max_value=16,
-        value=2
-    )
+    study_hours = st.number_input("Study Hours per Day", min_value=1, max_value=16, value=2)
 
 with col2:
     deadline = st.date_input("Exam / Assignment Deadline")
-    level = st.selectbox(
-        "Current Level",
-        ["Beginner", "Intermediate", "Advanced"]
-    )
+    level = st.selectbox("Current Level", ["Beginner", "Intermediate", "Advanced"])
 
-goal = st.text_area(
-    "Goal (e.g., Pass the exam, Score above 80%, Finish assignment)"
-)
+goal = st.text_area("Goal (e.g., Pass the exam, Score above 80%, Finish assignment)")
 
 st.markdown('</div>', unsafe_allow_html=True)
-
-
-# =========================================================
-# MATERIAL
-# =========================================================
 
 st.markdown("""
 <div class="card">
@@ -336,113 +310,54 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-input_method = st.radio(
-    "Select Input Method:",
-    ["Upload File (PDF/DOCX/TXT)", "Paste Text"]
-)
-
-
-# =========================================================
-# FILE UPLOAD
-# =========================================================
+input_method = st.radio("Select Input Method:", ["Upload File (PDF/DOCX/TXT)", "Paste Text"])
 
 if input_method == "Upload File (PDF/DOCX/TXT)":
-
-    uploaded_file = st.file_uploader(
-        "Upload a PDF, DOCX, or TXT file",
-        type=["pdf", "docx", "txt"]
-    )
+    uploaded_file = st.file_uploader("Upload a PDF, DOCX, or TXT file", type=["pdf", "docx", "txt"])
 
     if uploaded_file is not None:
-
         text = ""
 
         if uploaded_file.name.endswith(".pdf"):
-
             import PyPDF2
-
             reader = PyPDF2.PdfReader(uploaded_file)
-
             for page in reader.pages:
                 text += page.extract_text() or ""
 
         elif uploaded_file.name.endswith(".docx"):
-
             import docx
-
             doc = docx.Document(uploaded_file)
-
             for para in doc.paragraphs:
                 text += para.text + "\n"
-
             for table in doc.tables:
-
                 for row in table.rows:
-
                     for cell in row.cells:
                         text += cell.text + " "
-
                     text += "\n"
 
         elif uploaded_file.name.endswith(".txt"):
-
             text = uploaded_file.read().decode("utf-8")
 
         st.session_state.extracted_text = text
 
         if text.strip():
-
             st.success("File processed successfully.")
-
             with st.expander("View Extracted Text"):
-
-                st.write(
-                    text[:2000] +
-                    ("..." if len(text) > 2000 else "")
-                )
-
+                st.write(text[:2000] + ("..." if len(text) > 2000 else ""))
         else:
-
-            st.warning(
-                "No text could be extracted from this file. Try another file."
-            )
-
-
-# =========================================================
-# PASTE TEXT
-# =========================================================
+            st.warning("No text could be extracted from this file. Try another file.")
 
 else:
-
-    pasted = st.text_area(
-        "Paste your syllabus/assignment text here",
-        height=200
-    )
-
+    pasted = st.text_area("Paste your syllabus/assignment text here", height=200)
     st.session_state.extracted_text = pasted
-
 
 st.markdown('</div>', unsafe_allow_html=True)
 
-
-# =========================================================
-# GENERATE STUDY PLAN
-# =========================================================
-
 if st.button("Generate Study Plan"):
-
     if not st.session_state.extracted_text.strip():
-
-        st.error(
-            "Please upload a file or paste text first."
-        )
-
+        st.error("Please upload a file or paste text first.")
     else:
-
-        with st.spinner(
-            "Gemini is analyzing your material..."
-        ):
-
+        with st.spinner("Gemini is analyzing your material..."):
             prompt = f"""You are a study planner AI. Based on the details and material below, respond using EXACTLY this format with markdown headers:
 
 ## Important Topics
@@ -468,16 +383,7 @@ Material:
 
             response = model.generate_content(prompt)
 
-        st.markdown(
-            '<div class="card">',
-            unsafe_allow_html=True
-        )
-
+        st.markdown('<div class="card">', unsafe_allow_html=True)
         st.subheader("Your Study Plan")
-
         st.markdown(response.text)
-
-        st.markdown(
-            '</div>',
-            unsafe_allow_html=True
-        )
+        st.markdown('</div>', unsafe_allow_html=True)

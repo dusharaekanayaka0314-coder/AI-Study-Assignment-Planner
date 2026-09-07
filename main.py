@@ -1,8 +1,3 @@
-මෙන්න fix කරපු සම්පූර්ණ `main.py` code එක.
-
-මෙහි **Model එක `gemini-1.5-flash` ලෙස නිවැරදි කර** ඇති අතර, API Quota/Rate Limit එක පැනපු වෙලාවට App එක crash නොවී පැහැදිලි message එකක් දෙන්න **`try-except` Error Handling** එකතු කර ඇත.
-
-```python
 import os
 import docx
 from dotenv import load_dotenv
@@ -403,5 +398,3 @@ Material:
                     st.error("⚠️ API Request Limit Exceeded! Google Gemini free tier limit එක පැනලා. විනාඩියක් ඉඳලා නැවත උත්සාහ කරන්න (Please wait 1 minute and try again).")
                 else:
                     st.error(f"⚠️ An error occurred while generating the plan: {error_msg}")
-
-```

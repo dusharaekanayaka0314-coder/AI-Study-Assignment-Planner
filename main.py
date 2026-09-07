@@ -28,8 +28,8 @@ st.markdown(
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
-/* Apply modern font across application */
-html, body, [class*="css"], p, span, label, div, h1, h2, h3, h4, h5, h6 {
+/* Clean font inheritance without breaking internal Streamlit components */
+html, body, .stApp {
     font-family: 'Plus Jakarta Sans', sans-serif !important;
 }
 
@@ -126,12 +126,49 @@ label, .stMarkdown label p {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
 }
 
-/* Clean Dropzone Frame (Leaves native button untouched to fix overlap) */
+/* =========================================================
+   PURPLE FILE UPLOADER BUTTON & OVERLAP FIX
+   ========================================================= */
 [data-testid="stFileUploaderDropzone"] {
-    background-color: rgba(255, 255, 255, 0.8) !important;
+    background-color: rgba(255, 255, 255, 0.85) !important;
     border: 2px dashed #C7D2FE !important;
     border-radius: 16px !important;
     padding: 20px !important;
+}
+
+/* Purple Gradient Button inside Dropzone */
+[data-testid="stFileUploaderDropzone"] button {
+    background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%) !important;
+    color: #FFFFFF !important;
+    border: none !important;
+    border-radius: 10px !important;
+    padding: 10px 22px !important;
+    font-weight: 700 !important;
+    box-shadow: 0 4px 14px rgba(79, 70, 229, 0.3) !important;
+    transition: all 0.2s ease-in-out !important;
+}
+
+[data-testid="stFileUploaderDropzone"] button:hover {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 6px 18px rgba(79, 70, 229, 0.4) !important;
+}
+
+/* Fix overlapping inner text elements inside Streamlit uploader button */
+[data-testid="stFileUploaderDropzone"] button div,
+[data-testid="stFileUploaderDropzone"] button span,
+[data-testid="stFileUploaderDropzone"] button p {
+    color: #FFFFFF !important;
+    font-weight: 700 !important;
+    position: static !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Remove duplicate CSS pseudo elements */
+[data-testid="stFileUploaderDropzone"] button::before,
+[data-testid="stFileUploaderDropzone"] button::after {
+    content: none !important;
+    display: none !important;
 }
 
 /* Primary Action Button (Generate Study Plan) */

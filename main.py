@@ -132,25 +132,46 @@ div.stButton > button:hover {
     box-shadow: 0 6px 18px rgba(108, 92, 231, 0.5);
 }
 
-[data-testid="stFileUploaderDropzone"] {
-    border-radius: 14px;
-    border: 2px dashed #A29BFE !important;
-    background: #FAF9FF !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: space-between !important;
-    padding: 12px 16px !important;
+/* ---- DATE INPUT FIX ---- */
+
+[data-testid="stDateInput"] {
+    color-scheme: light !important;
 }
 
-[data-testid="stFileUploaderDropzone"] button {
-    position: static !important;
-    margin-left: 12px !important;
+[data-testid="stDateInput"] div[data-baseweb="input"] {
+    background-color: #FFFFFF !important;
+    color: #1E1E2F !important;
+    border: 1px solid #D8D2F5 !important;
+    border-radius: 8px !important;
 }
 
-[data-testid="stFileUploaderDropzoneInstructions"] {
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: center !important;
+[data-testid="stDateInput"] div[data-baseweb="input"] > div {
+    background-color: #FFFFFF !important;
+    color: #1E1E2F !important;
+}
+
+[data-testid="stDateInput"] input {
+    background-color: #FFFFFF !important;
+    color: #1E1E2F !important;
+    -webkit-text-fill-color: #1E1E2F !important;
+    color-scheme: light !important;
+}
+
+/* Calendar icon */
+[data-testid="stDateInput"] svg {
+    color: #6C5CE7 !important;
+    fill: #6C5CE7 !important;
+}
+
+/* Calendar popup */
+div[data-baseweb="calendar"] {
+    background-color: #FFFFFF !important;
+    color: #1E1E2F !important;
+    color-scheme: light !important;
+}
+
+div[data-baseweb="calendar"] * {
+    color: #1E1E2F !important;
 }
 
 div[role="radiogroup"] {

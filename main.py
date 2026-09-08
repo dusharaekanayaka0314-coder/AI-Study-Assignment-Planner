@@ -14,7 +14,7 @@ GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 genai.configure(api_key=GEMINI_API_KEY)
 
 # Standard stable Gemini model
-model = genai.GenerativeModel("gemini-1.5-flash")
+model = genai.GenerativeModel("gemini-3.6-flash")
 
 st.set_page_config(
     page_title="AI Study & Assignment Planner",
@@ -395,6 +395,6 @@ Material:
             except Exception as e:
                 error_msg = str(e)
                 if "ResourceExhausted" in error_msg or "429" in error_msg:
-                    st.error("⚠️ API Request Limit Exceeded! Google Gemini free tier limit එක පැනලා. විනාඩියක් ඉඳලා නැවත උත්සාහ කරන්න (Please wait 1 minute and try again).")
+                    st.error("⚠️ API Request Limit Exceeded. You've hit the Google Gemini free tier limit. Please wait 1 minute and try again.")
                 else:
                     st.error(f"⚠️ An error occurred while generating the plan: {error_msg}")
